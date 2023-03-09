@@ -3,7 +3,7 @@ package com.avdo;
 import java.util.*;
 
 public class Phonebook {
-    Map<String, PhoneNumber> phonebook = new HashMap<>(); // should PhoneNumber be a key and name a value because key is unique?
+    Map<String, PhoneNumber> phonebook = new HashMap<>();    // should PhoneNumber be a key and name a value, because key is unique?
 
     public void addNumber(String name, PhoneNumber number) {
         if (number != null)
@@ -50,7 +50,7 @@ public class Phonebook {
         for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
             PhoneNumber p = entry.getValue();
             if (p instanceof HomeTelephoneNumber) {
-                if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode())) // this seems to be ugly...
+                if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode()))    // this seems to be ugly...
                     namesFromGivenCity.add(entry.getKey());
             }
         }
@@ -62,7 +62,7 @@ public class Phonebook {
         for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
             PhoneNumber p = entry.getValue();
             if (p instanceof HomeTelephoneNumber) {
-                if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode())) // this seems to be ugly...
+                if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode()))    // this seems to be ugly...
                     numbersFromGivenCity.add(entry.getValue());
             }
         }

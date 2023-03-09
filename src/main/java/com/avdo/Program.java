@@ -15,7 +15,7 @@ public class Program {
         PhoneNumber p7 = null;
         PhoneNumber p8 = null;
         PhoneNumber s = MobilePhoneNumber.createNumber(62, null); // does something like this make sense?
-        createInstance(p1, 62, null); // or something like this...
+        createInstance(p1, 62, null);                            // or something like this...
         PhoneNumber s1 = MobilePhoneNumber.createNumber(62, "111-111");
 
 
