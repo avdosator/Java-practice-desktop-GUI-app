@@ -14,9 +14,9 @@ public class Program {
         PhoneNumber p6 = null;
         PhoneNumber p7 = null;
         PhoneNumber p8 = null;
-        PhoneNumber s = MobilePhoneNumber.createNumber(62, null); // does something like this make sense?
-        createInstance(p1, 62, null);                            // or something like this...
-        PhoneNumber s1 = MobilePhoneNumber.createNumber(62, "111-111");
+        PhoneNumber s = MobilePhoneNumber.createNumber(62, null); // does something like this make sense? In sense that constructor is throwing exception, and I want try block to continue with executing in case something in it throw that exception
+        createInstanceOfMobilePhone(p1, 62, null);                            // or something like this...
+        PhoneNumber p9 = MobilePhoneNumber.createNumber(62, "111-111");
 
 
         try {
@@ -37,7 +37,7 @@ public class Program {
 
         phones.addNumber("Vedo", p1);
         phones.addNumber("Proba", s);
-        phones.addNumber("Proba", s1);
+        phones.addNumber("Proba", p9);
 
         phones.addNumber("Shata", p2);
         phones.addNumber("Mama", p3);
@@ -72,7 +72,7 @@ public class Program {
     }
 
 
-    public static void createInstance(PhoneNumber phoneNumber, int provider, String number) {
+    public static void createInstanceOfMobilePhone(PhoneNumber phoneNumber, int provider, String number) {
         try {
             phoneNumber = new MobilePhoneNumber(provider, number);
         } catch (IllegalInputException e) {

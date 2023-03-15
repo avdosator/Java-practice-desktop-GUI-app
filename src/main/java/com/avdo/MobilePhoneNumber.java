@@ -12,6 +12,17 @@ public class MobilePhoneNumber extends PhoneNumber {
 
     }
 
+    public void setProvider(int provider) {
+        this.provider = provider;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+    public String getNumber() {
+        return number;
+    }
+
     public static PhoneNumber createNumber(int provider, String number) {
         PhoneNumber n = null;
         try {
