@@ -1,10 +1,11 @@
 package com.avdo;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
 public class Program {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         PhoneNumber p = null;
         PhoneNumber p1 = null;
         PhoneNumber p2 = null;
@@ -18,7 +19,6 @@ public class Program {
         createInstanceOfMobilePhone(p1, 62, null);                            // or something like this...
         PhoneNumber p9 = MobilePhoneNumber.createNumber(62, "111-111");
 
-
         try {
             p = new MobilePhoneNumber(62, "183-628");
             p2 = new MobilePhoneNumber(62, "014-936");
@@ -31,6 +31,7 @@ public class Program {
         } catch (IllegalInputException e) {
             e.printStackTrace();
         }
+
 
         Phonebook phones = new Phonebook();
         phones.addNumber("Avdo", p);
@@ -72,8 +73,10 @@ public class Program {
     }
 
 
-    public static void createInstanceOfMobilePhone(PhoneNumber phoneNumber, int provider, String number) {
+    public static void createInstanceOfMobilePhone(PhoneNumber * phoneNumber, int provider, String number) {
         try {
+            phoneNumber = &niz[10]
+            phoneNumber.number = 10;
             phoneNumber = new MobilePhoneNumber(provider, number);
         } catch (IllegalInputException e) {
             e.printStackTrace();

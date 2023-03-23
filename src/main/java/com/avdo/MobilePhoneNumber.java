@@ -12,25 +12,15 @@ public class MobilePhoneNumber extends PhoneNumber {
 
     }
 
-    public void setProvider(int provider) {
-        this.provider = provider;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
     public String getNumber() {
         return number;
     }
 
-    public static PhoneNumber createNumber(int provider, String number) {
+    public static PhoneNumber createNumber(int provider, String number) throws IllegalInputException {
         PhoneNumber n = null;
-        try {
-            n = new MobilePhoneNumber(provider, number);
+        n = new MobilePhoneNumber(provider, number);
 
-        } catch (IllegalInputException e) {
-            e.printStackTrace();
-        }
+
         return n;
     }
    /* public static MobilePhoneNumber factory (int provider, String number) {
