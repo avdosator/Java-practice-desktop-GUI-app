@@ -2,6 +2,8 @@ package com.avdo;
 
 import lombok.EqualsAndHashCode;
 
+import java.util.Objects;
+
 @EqualsAndHashCode
 public abstract class PhoneNumber implements Comparable<PhoneNumber> {
 
@@ -20,7 +22,7 @@ public abstract class PhoneNumber implements Comparable<PhoneNumber> {
         if (!other.canEqual((Object) this)) return false;
         final Object this$number = this.number;
         final Object other$number = other.number;
-        if (this$number == null ? other$number != null : !this$number.equals(other$number)) return false;
+        if (!Objects.equals(this$number, other$number)) return false;
         return true;
     }
 
@@ -29,10 +31,11 @@ public abstract class PhoneNumber implements Comparable<PhoneNumber> {
     }
 
     public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        final Object $number = this.number;
-        result = result * PRIME + ($number == null ? 43 : $number.hashCode());
-        return result;
+        return Objects.hash(number);
+//        final int PRIME = 59;
+//        int result = 1;
+//        final Object $number = this.number;
+//        result = result * PRIME + ($number == null ? 43 : $number.hashCode());
+//        return result;
     }
 }

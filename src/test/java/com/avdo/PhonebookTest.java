@@ -15,9 +15,8 @@ class PhonebookTest {
     //private Phonebook phonesMock = mock(Phonebook.class);
     //PhoneNumber numberMock = mock(MobilePhoneNumber.class);
 
-    @Test
     @BeforeEach
-    public  void setUp() throws IllegalInputException {
+    public void setUp() throws IllegalInputException {
         number = new MobilePhoneNumber(62, "184-151");
     }
 
@@ -27,6 +26,7 @@ class PhonebookTest {
         phones.addNumber("Vedo", number);
         assertEquals("062/184-151", phones.getNumber("Vedo"));
     }
+
     @Test
     void shouldReturnNullIfDoNotContainsGivenName() {
         phones.addNumber("Vedo", number);
@@ -43,7 +43,17 @@ class PhonebookTest {
     @Test
     void sizeShouldBeOneIfOneEntryIsAdded() {
         phones.addNumber("Vedo", number);
-        assertTrue(phones.phonebook.size() == 1);
+        assertTrue(phones.getPhonebookSize() == 1);
+    }
+
+    @Test
+    void sizeShouldBeFiveIfFiveEntriesAdded() {
+        phones.addNumber("Vedo", number);
+        phones.addNumber("Avdo", number);
+        phones.addNumber("Profa", number);
+        phones.addNumber("Klapa", number);
+        phones.addNumber("Gazda", number);
+        assertTrue(phones.getPhonebookSize() == 5);
     }
 
 

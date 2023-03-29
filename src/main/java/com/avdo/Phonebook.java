@@ -3,11 +3,10 @@ package com.avdo;
 import java.util.*;
 
 public class Phonebook {
-    Map<String, PhoneNumber> phonebook = new HashMap<>();    // should PhoneNumber be a key and name a value, because key is unique?
+    private Map<String, PhoneNumber> phonebook = new HashMap<>();    // should PhoneNumber be a key and name a value, because key is unique?
 
     public void addNumber(String name, PhoneNumber number) {
-        if (number != null)
-            phonebook.putIfAbsent(name, number);
+        if (number != null) phonebook.putIfAbsent(name, number);
     }
 
     public String getNumber(String name) {
@@ -16,7 +15,6 @@ public class Phonebook {
             number = phonebook.get(name);
             return number.print();
         }
-
         return null;
     }
 
@@ -29,8 +27,11 @@ public class Phonebook {
                 }
             }
         }
-
         return "There is no anybody with that number in phonebook";
+    }
+
+    public int getPhonebookSize() {
+        return phonebook.size();
     }
 
     public String onThisLetter(char c) {
@@ -47,11 +48,13 @@ public class Phonebook {
 
     public Set<String> personsFromCity(City city) {
         Set<String> namesFromGivenCity = new TreeSet<>();
-        for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
-            PhoneNumber p = entry.getValue();
-            if (p instanceof HomeTelephoneNumber) {
-                if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode()))    // this seems to be ugly...
-                    namesFromGivenCity.add(entry.getKey());
+        if (city != null) {
+            for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
+                PhoneNumber p = entry.getValue();
+                if (p instanceof HomeTelephoneNumber) {
+                    if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode()))    // this seems to be ugly...
+                        namesFromGivenCity.add(entry.getKey());
+                }
             }
         }
         return namesFromGivenCity;
@@ -59,14 +62,15 @@ public class Phonebook {
 
     public Set<PhoneNumber> numbersFromCity(City city) {
         Set<PhoneNumber> numbersFromGivenCity = new TreeSet<>();
-        for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
-            PhoneNumber p = entry.getValue();
-            if (p instanceof HomeTelephoneNumber) {
-                if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode()))    // this seems to be ugly...
-                    numbersFromGivenCity.add(entry.getValue());
+        if (city != null) {
+            for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
+                PhoneNumber p = entry.getValue();
+                if (p instanceof HomeTelephoneNumber) {
+                    if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode()))    // this seems to be ugly...
+                        numbersFromGivenCity.add(entry.getValue());
+                }
             }
         }
         return numbersFromGivenCity;
     }
-
 }

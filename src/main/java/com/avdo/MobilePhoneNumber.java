@@ -19,19 +19,8 @@ public class MobilePhoneNumber extends PhoneNumber {
     public static PhoneNumber createNumber(int provider, String number) throws IllegalInputException {
         PhoneNumber n = null;
         n = new MobilePhoneNumber(provider, number);
-
-
         return n;
     }
-   /* public static MobilePhoneNumber factory (int provider, String number) {
-
-        try {
-            return new MobilePhoneNumber(provider,number);
-        } catch (IllegalInputException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
 
     @Override
     public String print() {

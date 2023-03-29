@@ -1,85 +1,149 @@
 package com.avdo;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Program {
+    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) throws IOException {
-        PhoneNumber p = null;
-        PhoneNumber p1 = null;
-        PhoneNumber p2 = null;
-        PhoneNumber p3 = null;
-        PhoneNumber p4 = null;
-        PhoneNumber p5 = null;
-        PhoneNumber p6 = null;
-        PhoneNumber p7 = null;
-        PhoneNumber p8 = null;
-        PhoneNumber s = MobilePhoneNumber.createNumber(62, null); // does something like this make sense? In sense that constructor is throwing exception, and I want try block to continue with executing in case something in it throw that exception
-        createInstanceOfMobilePhone(p1, 62, null);                            // or something like this...
-        PhoneNumber p9 = MobilePhoneNumber.createNumber(62, "111-111");
 
-        try {
-            p = new MobilePhoneNumber(62, "183-628");
-            p2 = new MobilePhoneNumber(62, "014-936");
-            p3 = new MobilePhoneNumber(63, "852-949");
-            p4 = new MobilePhoneNumber(62, "364-375");
-            p5 = new MobilePhoneNumber(61, "917-366");
-            p6 = new HomeTelephoneNumber(City.SARAJEVO, "481-213");
-            p7 = new InternationalPhoneNumber("+550", "111-222-333");
-            p8 = new HomeTelephoneNumber(City.SARAJEVO, "481-214");
-        } catch (IllegalInputException e) {
-            e.printStackTrace();
-        }
+        Phonebook phonebook = new Phonebook();
+        System.out.println("**Welcome to  phonebook app**");
+        int option;
 
+        do {
+            System.out.println();
+            System.out.printf("Press \"1\" if you want to add new entry,\nPress \"2\" if you want to use some " +
+                    "searching options,\nPress \"0\" if you want to exit:\n");
+            option = scanner.nextInt();
 
-        Phonebook phones = new Phonebook();
-        phones.addNumber("Avdo", p);
+            if (option == 0) {
+                return;
+            } else if (option == 1) {
+                System.out.println("Choose an option:");
+                System.out.print("Press \"1\" if you want to add mobile number\n" +
+                        "Press \"2\" if you want to add home phone number\n" +
+                        "Press \"3\" if you want to add international phone number\n");
+                int entry = scanner.nextInt();
+                scanner.nextLine();
 
-        phones.addNumber("Vedo", p1);
-        phones.addNumber("Proba", s);
-        phones.addNumber("Proba", p9);
+                if (entry == 1) {
+                    System.out.println("Enter a provider (60-67)");
+                    int provider = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Enter a number in form \"111-111\"");
+                    String number = scanner.nextLine();
+                    PhoneNumber p = null;
+                    try {
+                        p = MobilePhoneNumber.createNumber(provider, number);
+                    } catch (IllegalInputException e) {
+                        System.out.println("Action not completed, try to enter valid arguments.");
+                        continue;
+                    }
+                    System.out.println("Enter name for previous number: ");
+                    String name = scanner.nextLine();
+                    phonebook.addNumber(name, p);
+                } else if (entry == 2) {
+                    City city = generateCity();
+                    if (city == null) {
+                        continue;
+                    }
+                    System.out.println("Enter a number in form \"111-111\"");
+                    String number = scanner.nextLine();
+                    PhoneNumber p = null;
+                    try {
+                        p = HomeTelephoneNumber.createNumber(city, number);
+                    } catch (IllegalInputException e) {
+                        System.out.println("Action not completed, try to enter valid arguments.");
+                        continue;
+                    }
+                    System.out.println("Enter name for previous number: ");
+                    String name = scanner.nextLine();
+                    phonebook.addNumber(name, p);
+                } else if (entry == 3) {
+                    System.out.println("Enter country code ");
+                    String country = scanner.nextLine();
+                    System.out.println("Enter a number ");
+                    String number = scanner.nextLine();
+                    PhoneNumber p = null;
+                    try {
+                        p = InternationalPhoneNumber.createNumber(country, number);
+                    } catch (IllegalInputException e) {
+                        System.out.println("Action not completed, try to enter valid arguments.");
+                        continue;
+                    }
+                    System.out.println("Enter name for previous number: ");
+                    String name = scanner.nextLine();
+                    phonebook.addNumber(name, p);
+                }
+            } else if (option == 2) {
+                System.out.print("Press 1 if you want to get number for provided name\n" +
+                        "Press 2 if you want to get all numbers from provided city\n" +
+                        "Press 3 if you want to get all persons from provided city\n" +
+                        "Press 4 if you want to search phonebook by starting letter\n");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice == 1) {
+                    System.out.println("Enter name");
+                    String name = scanner.nextLine();
+                    System.out.println(phonebook.getNumber(name));
+                } else if (choice == 2) {
+                    City city = generateCity();
+                    Set<PhoneNumber> numbersFromGivenCity = phonebook.numbersFromCity(city);
+                    System.out.println("Numbers from given city are:");
+                    numbersFromGivenCity.forEach(m -> System.out.println(m.print()));
+                } else if (choice == 3) {
+                    City city = generateCity();
+                    Set<String> personsFromGivenCity = phonebook.personsFromCity(city);
+                    System.out.printf("Names from given city (%s) are:\n", city.name());
+                    personsFromGivenCity.forEach(m -> System.out.println(m));
+                } else if (choice == 4) {
+                    System.out.println("Enter letter: ");
+                    char startingLetter = scanner.nextLine().charAt(0);
+                    System.out.println(phonebook.onThisLetter(startingLetter));
+                } else {
+                    System.out.println("Please choose option between 1 and 4");
+                    continue;
+                }
+            } else {
+                System.out.println("Please enter number 0,1 or 2");
+            }
 
-        phones.addNumber("Shata", p2);
-        phones.addNumber("Mama", p3);
-        phones.addNumber("Zlaja", p4);
-        phones.addNumber("Klapa", p5);
-        phones.addNumber("Sator", p6);
-        phones.addNumber("Cako", p7);
-        phones.addNumber("Mulic", p8);
+        } while (option != 0);
 
-        System.out.print("Klapa's number is: ");
-        System.out.println(phones.getNumber("Klapa"));
-
-        System.out.println("All numbers from phonebook are: ");
-        for (Map.Entry<String, PhoneNumber> entry : phones.phonebook.entrySet())
-            System.out.printf("%-10s - %s\n", entry.getKey(), entry.getValue().print());
-
-        System.out.println(phones.getName(p5));
-
-        System.out.println("All entries starting with \"M\": ");
-        String matchingNumbers = phones.onThisLetter('M');
-        //for (String s1: matchingNumbers)
-        System.out.println(matchingNumbers);
-        City sarajevo = City.SARAJEVO;
-        Set<String> personsFromGivenCity = phones.personsFromCity(City.SARAJEVO);
-        System.out.printf("Names from given city (%s) are:\n", sarajevo.name());
-        personsFromGivenCity.forEach(m -> System.out.println(m));
-
-        Set<PhoneNumber> numbersFromGivenCity = phones.numbersFromCity(City.SARAJEVO);
-        System.out.println("Numbers from given city are:");
-        numbersFromGivenCity.forEach(m -> System.out.println(m.print()));
-
+        System.out.println("Thank you for using our app");
     }
 
+    public static City generateCity() {
+        System.out.println("Enter city area code (030-039) ");
+        String cityString = scanner.nextLine();
 
-    public static void createInstanceOfMobilePhone(PhoneNumber * phoneNumber, int provider, String number) {
-        try {
-            phoneNumber = &niz[10]
-            phoneNumber.number = 10;
-            phoneNumber = new MobilePhoneNumber(provider, number);
-        } catch (IllegalInputException e) {
-            e.printStackTrace();
+        switch (cityString) {
+            case "030":
+                return City.TRAVNIK;
+            case "031":
+                return City.ORASJE;
+            case "032":
+                return City.ZENICA;
+            case "033":
+                return City.SARAJEVO;
+            case "034":
+                return City.LIVNO;
+            case "035":
+                return City.TUZLA;
+            case "036":
+                return City.MOSTAR;
+            case "037":
+                return City.BIHAC;
+            case "038":
+                return City.GORAZDE;
+            case "039":
+                return City.SIROKI_BRIJEG;
+            default:
+                System.out.println("Area code is not valid - should be between 030 and 039");
+                return null;
         }
     }
 }

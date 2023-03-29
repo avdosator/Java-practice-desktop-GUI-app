@@ -13,13 +13,13 @@ public enum City {
     GORAZDE("038"),
     SIROKI_BRIJEG("039");
 
-    public String getAreaCode() {
-        return areaCode;
-    }
-
     private final String areaCode;
 
     City(String areaCode) {
         this.areaCode = areaCode;
+    }
+
+    public String getAreaCode() {
+        return areaCode;
     }
 }
