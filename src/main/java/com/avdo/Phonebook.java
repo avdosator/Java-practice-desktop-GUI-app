@@ -3,31 +3,38 @@ package com.avdo;
 import java.util.*;
 
 public class Phonebook {
-    private Map<String, PhoneNumber> phonebook = new HashMap<>();    // should PhoneNumber be a key and name a value, because key is unique?
+    private Map<PhoneNumber, String> phonebook = new HashMap<>();
 
-    public void addNumber(String name, PhoneNumber number) {
-        if (number != null) phonebook.putIfAbsent(name, number);
-    }
-
-    public String getNumber(String name) {
-        PhoneNumber number = null;
-        if (phonebook.containsKey(name)) {
-            number = phonebook.get(name);
-            return number.print();
+    public void addNumber(PhoneNumber number, String name) {
+        if (number != null) {
+            phonebook.putIfAbsent(number, name);
         }
-        return null;
     }
 
-    public String getName(PhoneNumber number) {
-        if (phonebook.containsValue(number)) {
-            for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
-                String s1 = entry.getValue().print();
-                if (number.print().equals(s1)) {
-                    return entry.getKey();
+    public Optional<String> getNumber(String name) {
+        if (phonebook.containsValue(name)) {
+            for (Map.Entry<PhoneNumber, String> entry : phonebook.entrySet()) {
+                final String entryKey = entry.getKey().getFormattedNumber();
+                if (name.equals(entry.getValue())) {
+                    return Optional.of(entryKey);
                 }
             }
         }
-        return "There is no anybody with that number in phonebook";
+//        name = Objects.requireNonNull(name, "Name must not be null");
+        return Optional.empty();
+    }
+
+    public Optional<String> getName(PhoneNumber number) {
+        String name = null;
+        if (phonebook.containsKey(number)) {
+            for (Map.Entry<PhoneNumber, String> entry : phonebook.entrySet()) {
+                name = entry.getValue();
+                if (number.equals(entry.getKey())) {
+                    return Optional.of(name);
+                }
+            }
+        }
+        return Optional.empty();
     }
 
     public int getPhonebookSize() {
@@ -36,40 +43,47 @@ public class Phonebook {
 
     public String onThisLetter(char c) {
         StringBuilder entries = new StringBuilder();
-        List<String> matchingEntries = new ArrayList<>();
-        for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
-            String name = entry.getKey();
+        for (Map.Entry<PhoneNumber, String> entry : phonebook.entrySet()) {
+            String name = entry.getValue();
             if (c == name.charAt(0)) {
-                entries.append(name + " - " + entry.getValue().print()).append("\n");
+                entries.append(name + " - " + entry.getKey().getFormattedNumber()).append("\n");
             }
         }
         return entries.toString();
     }
 
-    public Set<String> personsFromCity(City city) {
+    public Set<String> personsFromCity(City city) throws IllegalInputException {
         Set<String> namesFromGivenCity = new TreeSet<>();
         if (city != null) {
-            for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
-                PhoneNumber p = entry.getValue();
-                if (p instanceof HomeTelephoneNumber) {
-                    if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode()))    // this seems to be ugly...
-                        namesFromGivenCity.add(entry.getKey());
+            for (Map.Entry<PhoneNumber, String> entry : phonebook.entrySet()) {
+                PhoneNumber phoneNumber = entry.getKey();
+                if (phoneNumber instanceof HomeTelephoneNumber) {
+                    String entryAreaCode = ((HomeTelephoneNumber) phoneNumber).getAreaCode();
+                    if (entryAreaCode.equals(city.getAreaCode())) {
+                        namesFromGivenCity.add(entry.getValue());
+                    }
                 }
             }
+        } else {
+            throw new IllegalInputException("Provided city is not valid");
         }
         return namesFromGivenCity;
     }
 
-    public Set<PhoneNumber> numbersFromCity(City city) {
+    public Set<PhoneNumber> numbersFromCity(City city) throws IllegalInputException {
         Set<PhoneNumber> numbersFromGivenCity = new TreeSet<>();
         if (city != null) {
-            for (Map.Entry<String, PhoneNumber> entry : phonebook.entrySet()) {
-                PhoneNumber p = entry.getValue();
-                if (p instanceof HomeTelephoneNumber) {
-                    if (((HomeTelephoneNumber) p).getAreaCode().equals(city.getAreaCode()))    // this seems to be ugly...
-                        numbersFromGivenCity.add(entry.getValue());
+            for (Map.Entry<PhoneNumber, String> entry : phonebook.entrySet()) {
+                PhoneNumber phoneNumber = entry.getKey();
+                if (phoneNumber instanceof HomeTelephoneNumber) {
+                    String entryAreaCode = ((HomeTelephoneNumber) phoneNumber).getAreaCode();
+                    if (entryAreaCode.equals(city.getAreaCode())) {
+                        numbersFromGivenCity.add(entry.getKey());
+                    }
                 }
             }
+        } else {
+            throw new IllegalInputException("Please provide valid city");
         }
         return numbersFromGivenCity;
     }

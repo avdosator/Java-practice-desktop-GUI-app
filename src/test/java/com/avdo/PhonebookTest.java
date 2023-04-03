@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class PhonebookTest {
 
@@ -23,38 +22,36 @@ class PhonebookTest {
     @Test
     @DisplayName("If given name is present in phonebook it should return its number")
     void shouldReturnNumberIfContainsGivenName() {
-        phones.addNumber("Vedo", number);
+        phones.addNumber(number, "Vedo");
         assertEquals("062/184-151", phones.getNumber("Vedo"));
     }
 
     @Test
     void shouldReturnNullIfDoNotContainsGivenName() {
-        phones.addNumber("Vedo", number);
+        phones.addNumber(number, "Vedo");
         assertNull(phones.getNumber("Klapa"));
     }
 
     @Test
     @DisplayName("If given number is present in phonebook, it should return its name")
     void shouldReturnNameIfContainsGivenNumber() {
-        phones.addNumber("Vedo", number);
+        phones.addNumber(number, "Vedo");
         assertEquals("Vedo", phones.getName(number));
     }
 
     @Test
     void sizeShouldBeOneIfOneEntryIsAdded() {
-        phones.addNumber("Vedo", number);
+        phones.addNumber(number, "Vedo");
         assertTrue(phones.getPhonebookSize() == 1);
     }
 
     @Test
     void sizeShouldBeFiveIfFiveEntriesAdded() {
-        phones.addNumber("Vedo", number);
-        phones.addNumber("Avdo", number);
-        phones.addNumber("Profa", number);
-        phones.addNumber("Klapa", number);
-        phones.addNumber("Gazda", number);
+        phones.addNumber(number, "Vedo");
+        phones.addNumber(number, "Avdo");
+        phones.addNumber(number, "Profa");
+        phones.addNumber(number, "Klapa");
+        phones.addNumber(number, "Gazda");
         assertTrue(phones.getPhonebookSize() == 5);
     }
-
-
 }

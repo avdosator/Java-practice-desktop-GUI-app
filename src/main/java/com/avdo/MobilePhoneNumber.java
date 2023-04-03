@@ -3,13 +3,9 @@ package com.avdo;
 public class MobilePhoneNumber extends PhoneNumber {
     private int provider;
 
-    public MobilePhoneNumber(int provider, String number) throws IllegalInputException {
-        if (provider > 60 && provider < 67 && number != null) {
+    private MobilePhoneNumber(int provider, String number) {
             this.number = number;
             this.provider = provider;
-        } else
-            throw new IllegalInputException("Please provide valid arguments");
-
     }
 
     public String getNumber() {
@@ -17,19 +13,17 @@ public class MobilePhoneNumber extends PhoneNumber {
     }
 
     public static PhoneNumber createNumber(int provider, String number) throws IllegalInputException {
-        PhoneNumber n = null;
-        n = new MobilePhoneNumber(provider, number);
-        return n;
+        return new MobilePhoneNumber(provider, number);
     }
 
     @Override
-    public String print() {
+    public String getFormattedNumber() {
         return "0" + provider + "/" + number;
     }
 
     @Override
     public int compareTo(PhoneNumber phoneNumber) {
-        return print().compareToIgnoreCase(phoneNumber.print());
+        return getFormattedNumber().compareToIgnoreCase(phoneNumber.getFormattedNumber());
     }
 
 }

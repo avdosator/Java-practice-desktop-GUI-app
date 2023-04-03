@@ -6,27 +6,22 @@ import lombok.Getter;
 public class HomeTelephoneNumber extends PhoneNumber {
     private final String areaCode;
 
-    public HomeTelephoneNumber(City city, String number) throws IllegalInputException {
-        if (number != null && city != null) {
+    private HomeTelephoneNumber(City city, String number) {
             this.number = number;
             this.areaCode = city.getAreaCode();
-        } else
-            throw new IllegalInputException("Please provide valid arguments");
     }
 
     public static PhoneNumber createNumber(City city, String number) throws IllegalInputException {
-        PhoneNumber n = null;
-        n = new HomeTelephoneNumber(city, number);
-        return n;
+        return new HomeTelephoneNumber(city, number);
     }
 
-    public String print() {
+    public String getFormattedNumber() {
         return areaCode + "/" + number;
     }
 
     @Override
     public int compareTo(PhoneNumber phoneNumber) {
-        return print().compareToIgnoreCase(phoneNumber.print());
+        return getFormattedNumber().compareToIgnoreCase(phoneNumber.getFormattedNumber());
     }
 
 }
