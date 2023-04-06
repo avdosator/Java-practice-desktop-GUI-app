@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
@@ -23,20 +25,20 @@ class PhonebookTest {
     @DisplayName("If given name is present in phonebook it should return its number")
     void shouldReturnNumberIfContainsGivenName() throws IllegalInputException {
         phones.addNumber(number, "Vedo");
-        assertEquals("062/184-151", phones.getNumber("Vedo"));
+        assertEquals(Optional.of("062/184-151"), phones.getNumber("Vedo"));
     }
 
     @Test
-    void shouldReturnNullIfDoNotContainsGivenName() throws IllegalInputException {
+    void shouldReturnOptional_emptyIfDoNotContainsGivenName() throws IllegalInputException {
         phones.addNumber(number, "Vedo");
-        assertNull(phones.getNumber("Klapa"));
+        assertEquals(Optional.empty(), phones.getNumber("Klapa"));
     }
 
     @Test
     @DisplayName("If given number is present in phonebook, it should return its name")
     void shouldReturnNameIfContainsGivenNumber() throws IllegalInputException {
         phones.addNumber(number, "Vedo");
-        assertEquals("Vedo", phones.getName(number));
+        assertEquals(Optional.of("Vedo"), phones.getName(number));
     }
 
     @Test
@@ -47,11 +49,11 @@ class PhonebookTest {
 
     @Test
     void sizeShouldBeFiveIfFiveEntriesAdded() throws IllegalInputException {
-        phones.addNumber(number, "Vedo");
-        phones.addNumber(number, "Avdo");
-        phones.addNumber(number, "Profa");
-        phones.addNumber(number, "Klapa");
-        phones.addNumber(number, "Gazda");
+        phones.addNumber(new MobilePhoneNumber(61, "111-111"), "Vedo");
+        phones.addNumber(new MobilePhoneNumber(62, "222-222"), "Avdo");
+        phones.addNumber(new MobilePhoneNumber(62, "333-333"), "Profa");
+        phones.addNumber(new HomeTelephoneNumber(City.SARAJEVO, "444-444"), "Klapa");
+        phones.addNumber(new InternationalPhoneNumber("+550", "555-555"), "Cako");
         assertTrue(phones.getPhonebookSize() == 5);
     }
 }
