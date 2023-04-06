@@ -21,32 +21,32 @@ class PhonebookTest {
 
     @Test
     @DisplayName("If given name is present in phonebook it should return its number")
-    void shouldReturnNumberIfContainsGivenName() {
+    void shouldReturnNumberIfContainsGivenName() throws IllegalInputException {
         phones.addNumber(number, "Vedo");
         assertEquals("062/184-151", phones.getNumber("Vedo"));
     }
 
     @Test
-    void shouldReturnNullIfDoNotContainsGivenName() {
+    void shouldReturnNullIfDoNotContainsGivenName() throws IllegalInputException {
         phones.addNumber(number, "Vedo");
         assertNull(phones.getNumber("Klapa"));
     }
 
     @Test
     @DisplayName("If given number is present in phonebook, it should return its name")
-    void shouldReturnNameIfContainsGivenNumber() {
+    void shouldReturnNameIfContainsGivenNumber() throws IllegalInputException {
         phones.addNumber(number, "Vedo");
         assertEquals("Vedo", phones.getName(number));
     }
 
     @Test
-    void sizeShouldBeOneIfOneEntryIsAdded() {
+    void sizeShouldBeOneIfOneEntryIsAdded() throws IllegalInputException {
         phones.addNumber(number, "Vedo");
         assertTrue(phones.getPhonebookSize() == 1);
     }
 
     @Test
-    void sizeShouldBeFiveIfFiveEntriesAdded() {
+    void sizeShouldBeFiveIfFiveEntriesAdded() throws IllegalInputException {
         phones.addNumber(number, "Vedo");
         phones.addNumber(number, "Avdo");
         phones.addNumber(number, "Profa");
