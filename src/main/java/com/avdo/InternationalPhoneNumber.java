@@ -4,9 +4,13 @@ public class InternationalPhoneNumber extends PhoneNumber {
 
     private String country;
 
-    private InternationalPhoneNumber(String country, String number) {
+    private InternationalPhoneNumber(String country, String number) throws IllegalInputException {
+        if (country != null && number != null) {
             this.number = number;
             this.country = country;
+        } else {
+            throw new IllegalInputException("Please provide valid arguments");
+        }
     }
 
     public static PhoneNumber createNumber(String country, String number) throws IllegalInputException {

@@ -6,9 +6,11 @@ import lombok.Getter;
 public class HomeTelephoneNumber extends PhoneNumber {
     private final String areaCode;
 
-    private HomeTelephoneNumber(City city, String number) {
+    private HomeTelephoneNumber(City city, String number) throws IllegalInputException {
+        if (city != null && number != null) {
             this.number = number;
             this.areaCode = city.getAreaCode();
+        } else throw new IllegalInputException("Please provide valid arguments");
     }
 
     public static PhoneNumber createNumber(City city, String number) throws IllegalInputException {

@@ -3,9 +3,13 @@ package com.avdo;
 public class MobilePhoneNumber extends PhoneNumber {
     private int provider;
 
-    private MobilePhoneNumber(int provider, String number) {
+    private MobilePhoneNumber(int provider, String number) throws IllegalInputException {
+        if ((provider > 60 && provider < 67) && number != null) {
             this.number = number;
             this.provider = provider;
+        } else {
+            throw new IllegalInputException("Please provide valid arguments");
+        }
     }
 
     public String getNumber() {

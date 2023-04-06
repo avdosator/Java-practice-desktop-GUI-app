@@ -5,9 +5,11 @@ import java.util.*;
 public class Phonebook {
     private Map<PhoneNumber, String> phonebook = new HashMap<>();
 
-    public void addNumber(PhoneNumber number, String name) {
-        if (number != null) {
+    public void addNumber(PhoneNumber number, String name) throws IllegalInputException {
+        if (number != null || name != null) {
             phonebook.putIfAbsent(number, name);
+        } else {
+            throw new IllegalInputException("Please provide valid arguments");
         }
     }
 
@@ -20,7 +22,6 @@ public class Phonebook {
                 }
             }
         }
-//        name = Objects.requireNonNull(name, "Name must not be null");
         return Optional.empty();
     }
 

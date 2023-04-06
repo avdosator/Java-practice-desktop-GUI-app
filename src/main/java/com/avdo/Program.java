@@ -34,7 +34,7 @@ public class Program {
                     if (isEmptyString(name)) {
                         continue;
                     }
-                    phonebook.addNumber(phoneNumber, name);
+                    addPhoneNumberToPhonebook(phonebook, phoneNumber, name);
                 } else if (chosenSuboption == 2) {
                     PhoneNumber phoneNumber;
                     try {
@@ -47,7 +47,7 @@ public class Program {
                     if (isEmptyString(name)) {
                         continue;
                     }
-                    phonebook.addNumber(phoneNumber, name);
+                    addPhoneNumberToPhonebook(phonebook, phoneNumber, name);
                 } else if (chosenSuboption == 3) {
                     PhoneNumber phoneNumber;
                     try {
@@ -60,7 +60,7 @@ public class Program {
                     if (isEmptyString(name)) {
                         continue;
                     }
-                    phonebook.addNumber(phoneNumber, name);
+                    addPhoneNumberToPhonebook(phonebook, phoneNumber, name);
                 } else {
                     System.out.println("Please choose valid option");
                 }
@@ -84,6 +84,15 @@ public class Program {
         scanner.close();
     }
 
+    private static void addPhoneNumberToPhonebook(Phonebook phonebook, PhoneNumber phoneNumber, String name) {
+        try {
+            phonebook.addNumber(phoneNumber, name);
+            System.out.println("You have successfully added a contact");
+        } catch (IllegalInputException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private static void getEntriesOnProvidedLetter(Phonebook phonebook) {
         System.out.println("Enter letter: ");
         String userInput = scanner.nextLine().trim();
@@ -99,7 +108,7 @@ public class Program {
 
     private static void getNamesFromCity(Phonebook phonebook) {
         City city = generateCityFromUsersInput();
-        Set<String> personsFromGivenCity = null;
+        Set<String> personsFromGivenCity;
         try {
             personsFromGivenCity = phonebook.personsFromCity(city);
         } catch (IllegalInputException e) {
@@ -143,8 +152,8 @@ public class Program {
         String country = scanner.nextLine().trim();
         System.out.println("Enter a number ");
         String number = scanner.nextLine().trim();
-        if (number.isEmpty() && country.isEmpty()) {
-            throw new IllegalInputException("Please enter country and number");
+        if (number.isEmpty() || country.isEmpty()) {
+            throw new IllegalInputException("Please enter country and number strings");
         }
         PhoneNumber phoneNumber;
         try {
@@ -166,8 +175,7 @@ public class Program {
         if (number.isEmpty()) {
             throw new IllegalInputException("Please provide number in form \"111-111\"");
         }
-        PhoneNumber phoneNumber = HomeTelephoneNumber.createNumber(city, number);
-        return phoneNumber;
+        return HomeTelephoneNumber.createNumber(city, number);
     }
 
     private static PhoneNumber takeInfoAndCreateMobilePhoneNumber() throws IllegalInputException {
@@ -182,8 +190,7 @@ public class Program {
         if (number.isEmpty()) {
             throw new IllegalInputException("Please provide number in form \"111-111\"");
         }
-        PhoneNumber phoneNumber = MobilePhoneNumber.createNumber(provider, number);
-        return phoneNumber;
+        return MobilePhoneNumber.createNumber(provider, number);
     }
 
     private static void askUserForAddingSuboption() {
@@ -194,7 +201,7 @@ public class Program {
     }
 
     private static void askUserForOption() {
-        System.out.printf("Press \"1\" if you want to add new entry\n" +
+        System.out.print("Press \"1\" if you want to add new entry\n" +
                 "Press \"2\" if you want to use some searching options\n" +
                 "Press \"0\" if you want to exit:\n");
     }
@@ -232,13 +239,12 @@ public class Program {
 
     private static String takeNameFromUser() {
         System.out.println("Enter name for previous number: ");
-        String name = scanner.nextLine().trim();
-        return name;
+        return scanner.nextLine().trim();
     }
 
     private static boolean isEmptyString(String name) {
         if (name.isEmpty()) {
-            System.out.println("Creation is not completed, please enter name after number");
+            System.out.println("Creation is not completed, please enter a name after number");
             return true;
         }
         return false;
