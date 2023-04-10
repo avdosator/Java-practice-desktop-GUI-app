@@ -4,7 +4,7 @@ public class InternationalPhoneNumber extends PhoneNumber {
 
     private String country;
 
-    InternationalPhoneNumber(String country, String number) throws IllegalInputException {
+    private InternationalPhoneNumber(String country, String number) throws IllegalInputException {
         if (country != null && number != null) {
             this.number = number;
             this.country = country;

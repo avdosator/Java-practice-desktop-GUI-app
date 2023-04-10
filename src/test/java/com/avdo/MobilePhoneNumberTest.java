@@ -11,12 +11,12 @@ class MobilePhoneNumberTest {
     @DisplayName("Throw IllegalInputException if provider is not between 60 and 67")
     void shouldThrowExceptionIfProviderNumberIsNotGood() {
         assertThrows(IllegalInputException.class, () ->
-                new MobilePhoneNumber(68, "183-628"));
+                MobilePhoneNumber.createNumber(68, "183-628"));
     }
 
     @Test
     void shouldNotThrowException() {
-        assertDoesNotThrow(() -> new MobilePhoneNumber(62, "111-222"));
+        assertDoesNotThrow(() -> MobilePhoneNumber.createNumber(62, "111-222"));
     }
 
 }

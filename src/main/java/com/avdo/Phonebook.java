@@ -6,7 +6,7 @@ public class Phonebook {
     private Map<PhoneNumber, String> phonebook = new HashMap<>();
 
     public void addNumber(PhoneNumber number, String name) throws IllegalInputException {
-        if (number != null || name != null) {
+        if (number != null && name != null) {
             phonebook.putIfAbsent(number, name);
         } else {
             throw new IllegalInputException("Please provide valid arguments");
@@ -26,7 +26,7 @@ public class Phonebook {
     }
 
     public Optional<String> getName(PhoneNumber number) {
-        String name = null;
+        String name;
         if (phonebook.containsKey(number)) {
             for (Map.Entry<PhoneNumber, String> entry : phonebook.entrySet()) {
                 name = entry.getValue();
@@ -45,7 +45,7 @@ public class Phonebook {
     public String onThisLetter(char c) {
         StringBuilder entries = new StringBuilder();
         for (Map.Entry<PhoneNumber, String> entry : phonebook.entrySet()) {
-            String name = entry.getValue();
+            final String name = entry.getValue();
             if (c == name.charAt(0)) {
                 entries.append(name + " - " + entry.getKey().getFormattedNumber()).append("\n");
             }

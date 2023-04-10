@@ -12,13 +12,11 @@ import static org.mockito.Mockito.mock;
 class PhonebookTest {
 
     private PhoneNumber number;
-    private Phonebook phones = new Phonebook();
-    //private Phonebook phonesMock = mock(Phonebook.class);
-    //PhoneNumber numberMock = mock(MobilePhoneNumber.class);
+    private final Phonebook phones = new Phonebook();
 
     @BeforeEach
     public void setUp() throws IllegalInputException {
-        number = new MobilePhoneNumber(62, "184-151");
+        number = MobilePhoneNumber.createNumber(62, "184-151");
     }
 
     @Test
@@ -49,11 +47,11 @@ class PhonebookTest {
 
     @Test
     void sizeShouldBeFiveIfFiveEntriesAdded() throws IllegalInputException {
-        phones.addNumber(new MobilePhoneNumber(61, "111-111"), "Vedo");
-        phones.addNumber(new MobilePhoneNumber(62, "222-222"), "Avdo");
-        phones.addNumber(new MobilePhoneNumber(62, "333-333"), "Profa");
-        phones.addNumber(new HomeTelephoneNumber(City.SARAJEVO, "444-444"), "Klapa");
-        phones.addNumber(new InternationalPhoneNumber("+550", "555-555"), "Cako");
+        phones.addNumber(MobilePhoneNumber.createNumber(61, "111-111"), "Vedo");
+        phones.addNumber(MobilePhoneNumber.createNumber(62, "222-222"), "Avdo");
+        phones.addNumber(MobilePhoneNumber.createNumber(62, "333-333"), "Profa");
+        phones.addNumber(HomeTelephoneNumber.createNumber(City.SARAJEVO, "444-444"), "Klapa");
+        phones.addNumber(InternationalPhoneNumber.createNumber("+550", "555-555"), "Cako");
         assertTrue(phones.getPhonebookSize() == 5);
     }
 }
