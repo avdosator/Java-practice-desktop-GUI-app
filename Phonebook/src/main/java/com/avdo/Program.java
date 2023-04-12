@@ -115,7 +115,7 @@ public class Program {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.printf("Names from given city (%s) are:\n", city.name());
+        System.out.printf("Names from %s are:\n", city.name());
         if (personsFromGivenCity != null) {
             personsFromGivenCity.forEach(m -> System.out.println(m));
         }
@@ -130,7 +130,7 @@ public class Program {
             System.out.println(e.getMessage());
             return;
         }
-        System.out.printf("Numbers from given city(%s) are:\n", city.name());
+        System.out.printf("Numbers from %s are:\n", city.name());
         numbersFromGivenCity.forEach(m -> System.out.println(m.getFormattedNumber()));
     }
 

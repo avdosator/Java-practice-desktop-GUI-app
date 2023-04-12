@@ -23,7 +23,7 @@ public class FriendTest {
 
     @BeforeAll
     static void deserializeFile() throws IOException {
-        friends = objectMapper.readValue(new File("main/resources/friends.json"), Friend[].class);
+        friends = objectMapper.readValue(new File("src/main/resources/friends.json"), Friend[].class);
     }
 
     @Test
@@ -60,16 +60,16 @@ public class FriendTest {
     @Test
     void serializeFriendsArrayAndIgnoreHeightField() throws IOException {
         friends[0].setHeight(190);
-        objectWriter.writeValue(new File("main/resources/serialized_friends.json"), friends);
-        deserialized_friends = objectMapper.readValue(new File("main/resources/serialized_friends.json"), Friend[].class);
+        objectWriter.writeValue(new File("src/main/resources/serialized_friends.json"), friends);
+        deserialized_friends = objectMapper.readValue(new File("src/main/resources/serialized_friends.json"), Friend[].class);
         assertEquals(0, deserialized_friends[0].getHeight());
     }
 
     @Test
     void serializationWillIgnoreCarField() throws IOException {
         friends[1].setCar(car);
-        objectWriter.writeValue(new File("main/resources/serialized_friends.json"), friends);
-        deserialized_friends = objectMapper.readValue(new File("main/resources/serialized_friends.json"), Friend[].class);
+        objectWriter.writeValue(new File("src/main/resources/serialized_friends.json"), friends);
+        deserialized_friends = objectMapper.readValue(new File("src/main/resources/serialized_friends.json"), Friend[].class);
         assertNull(deserialized_friends[1].getCar());
     }
 
