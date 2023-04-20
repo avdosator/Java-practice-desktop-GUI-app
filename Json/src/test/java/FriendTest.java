@@ -19,7 +19,7 @@ public class FriendTest {
     private static Friend[] friends;
     private static Friend[] deserialized_friends;
     @Mock
-    private Car car = new Car("blue", 20000, 4);
+    private Car car;
 
     @BeforeAll
     static void deserializeFile() throws IOException {

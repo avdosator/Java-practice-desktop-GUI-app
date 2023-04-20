@@ -10,5 +10,8 @@
         <module name="Phonebook" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Phonebook" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>
