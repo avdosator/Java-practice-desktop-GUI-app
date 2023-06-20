@@ -3,7 +3,6 @@ package org.avdo.patterns.builder;
 public class VendingMachineDemo {
 
     public static void main(String[] args) {
-
         VendingMachine.VendingMachineBuilder builder = new VendingMachine.VendingMachineBuilder();
         VendingMachine vendingMachine = builder.addItem("Snickers", 50)
                 .addItem("Mars", 50)
