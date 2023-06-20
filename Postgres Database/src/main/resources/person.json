@@ -1,0 +1,49 @@
+[ {
+  "id" : "1",
+  "name" : "Vedad",
+  "surname" : "Mulic",
+  "phoneNumber" : "062184151",
+  "city" : "SA"
+}, {
+  "id" : "2",
+  "name" : "Avdo",
+  "surname" : "Sator",
+  "phoneNumber" : "062183628",
+  "city" : "SA"
+}, {
+  "id" : "3",
+  "name" : "Zlatko",
+  "surname" : "Alibajraktarevic",
+  "phoneNumber" : "062364375",
+  "city" : "MG"
+}, {
+  "id" : "4",
+  "name" : "Amer",
+  "surname" : "Klapuh",
+  "phoneNumber" : "062914366",
+  "city" : "FO"
+}, {
+  "id" : "5",
+  "name" : "Dino",
+  "surname" : "Jahic",
+  "phoneNumber" : "062222333",
+  "city" : "FO"
+}, {
+  "id" : "6",
+  "name" : "Dzenana",
+  "surname" : "Mulic",
+  "phoneNumber" : "061537350",
+  "city" : "SA"
+}, {
+  "id" : "7",
+  "name" : "Azra",
+  "surname" : "Jerlagic",
+  "phoneNumber" : "062123457",
+  "city" : "LI"
+}, {
+  "id" : "8",
+  "name" : "Aldin",
+  "surname" : "Sinan",
+  "phoneNumber" : "061916512",
+  "city" : "SA"
+} ]
